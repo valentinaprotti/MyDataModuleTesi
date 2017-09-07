@@ -17,16 +17,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/button_add"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_row="1"
-        android:layout_column="0"
         android:src="@drawable/ic_add_black_48dp"
         android:scaleType="center"
         android:background="#00897b"
-        android:contentDescription="Nuovo Account MyData"
+        android:contentDescription="@string/ib_newaccount_desc"
         android:onClick="newAccount"
         android:visibility="visible"/>
 

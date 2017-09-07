@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Data Consent creati"
+        android:text="@string/tv_dataconsent_title_text"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -31,8 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="• Testo di prova linea 1
-• Testo di prova linea 2"/>
+            android:text="@string/tv_dataconsent_text"/>
 
     </ScrollView>
 

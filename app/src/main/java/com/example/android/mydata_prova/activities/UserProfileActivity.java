@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -80,6 +81,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 		mWithdrawButton.setOnClickListener(this);
 
 		setTitle("Gestione Consent");
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 		// servizio a cui si riferisce
 		serviceProva = new ServiceProva();
@@ -137,9 +140,28 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 			Toast.makeText(this, this.getIntent().getStringExtra(EXTRA_MESSAGE), Toast.LENGTH_SHORT).show();
     }
 
-    /*
-     * Handler di tutti i pulsanti e gli switch che avvia il metodo corretto
-     */
+	@Override
+	public void onBackPressed() {
+		Intent i = new Intent(this, MainActivity.class);
+		i.putExtra("EXTRA_CLOSED", "Sessione terminata");
+		startActivity(i);
+		finish();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			// Respond to the action bar's Up/Home button
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	/*
+			 * Handler di tutti i pulsanti e gli switch che avvia il metodo corretto
+			 */
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -202,13 +224,13 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 	}
 
 	/* Questo metodo viene invocato alla pressione del pulsante "Revoca consenso".
-		 * Anch'esso chiede conferma della decisione dell'utente, con supporto vocale, e se
-		 * confermato, cambia opportunamente lo stato del service consent. TODO: In questo caso dovrebbe
-		 * completamente lanciare una nuova schermata, la stessa della creazione dell'account presso
-		 * questo servizio che ho messo nel to do in alto, perché il consent è stato revocato e non
-		 * è più attivabile da questo status (withdrawn).
-		 * Se non viene confermato, nulla cambia.
-		 */
+	 * Anch'esso chiede conferma della decisione dell'utente, con supporto vocale, e se
+	 * confermato, cambia opportunamente lo stato del service consent. TODO: In questo caso dovrebbe
+	 * completamente lanciare una nuova schermata, la stessa della creazione dell'account presso
+	 * questo servizio che ho messo nel to do in alto, perché il consent è stato revocato e non
+	 * è più attivabile da questo status (withdrawn).
+	 * Se non viene confermato, nulla cambia.
+	 */
 	public void withdrawOption(final View view) {
 		if(voiceSupport)
 			if(!VoiceSupport.isTalkBackEnabled(this)){
@@ -225,7 +247,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 					public void onClick(DialogInterface dialog, int which) {
 						// cambia lo stato del consent a withdrawn
 						controller.withdrawConsentForService(serviceProva);
-						// startActivity(new Intent(getApplicationContext(), MainActivity.class));
+						// avvia l'activity per creare un nuovo account MyData
+						Intent i = new Intent (UserProfileActivity.this, NewAccountActivity.class);
+						i.putExtra(EXTRA_MESSAGE, "Account eliminato con successo");
+						startActivity(i);
 					}
 				})
 				.setNegativeButton("No", null)

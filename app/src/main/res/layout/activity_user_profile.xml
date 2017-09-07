@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Condividi Posizione"
+                android:text="@string/tv_location_text"
                 android:id="@+id/locationTextView"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -52,17 +52,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/locationSwitch"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:checked="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"/>
 
         </RelativeLayout>
 
-<!--        <View
+        <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="#e0e0e0"
@@ -72,7 +73,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#e0e0e0"/> -->
+            android:background="#e0e0e0"/>
 
 
     </LinearLayout>
@@ -94,13 +95,11 @@
             android:layout_weight="1"
             android:background="#00897b"
             android:textColor="#000000"
-            android:layout_gravity="right"
-            android:text=
-                "Visualizza
-data consent"
+            android:layout_gravity="end"
+            android:text="@string/consent_text"
             android:textAlignment="center"
             android:onClick="viewDataConsents"
-            android:contentDescription="Mostra tutti i data consent emessi in precedenza" />
+            android:contentDescription="@string/consent_desc" />
 
 
         <LinearLayout
@@ -108,9 +107,6 @@ data consent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:id="@+id/linearLayoutConsentOptions">
 
             <Button
@@ -121,13 +117,11 @@ data consent"
                 android:layout_weight="1"
                 android:background="#80cbc4"
                 android:textColor="#000000"
-                android:layout_gravity="right"
-                android:text=
-                    "Disabilita
-consenso"
+                android:layout_gravity="end"
+                android:text="@string/disable_text"
                 android:textAlignment="center"
                 android:onClick="disableOption"
-                android:contentDescription="Disattiva il consenso alla condivisione di tutti i dati (può essere riattivato)" />
+                android:contentDescription="@string/disable_desc" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
@@ -137,13 +131,11 @@ consenso"
                 android:layout_weight="1"
                 android:background="#26a69a"
                 android:textColor="#000000"
-                android:layout_gravity="right"
-                android:text=
-                    "Revoca
-consenso"
+                android:layout_gravity="end"
+                android:text="@string/withdraw_text"
                 android:textAlignment="center"
                 android:onClick="withdrawOption"
-                android:contentDescription="Revoca il consenso alla condivisione di tutti i dati" />
+                android:contentDescription="@string/withdraw_desc" />
 
         </LinearLayout>
     </LinearLayout>

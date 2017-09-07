@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">MyData_prova</string>
+
+    <string name="withdraw_desc">Revoca il consenso alla condivisione di tutti i dati</string>
+    <string name="withdraw_text">Revoca\nconsenso</string>
+    <string name="disable_desc">Disattiva il consenso alla condivisione di tutti i dati (può essere riattivato)</string>
+    <string name="disable_text">Disabilita\nconsenso</string>
+    <string name="consent_desc">Mostra tutti i data consent emessi in precedenza</string>
+    <string name="consent_text">Visualizza\ndata consent</string>
+    <string name="tv_location_text">Condividi Posizione</string>
+
+    <string name="ib_newaccount_desc">Nuovo Account MyData</string>
+
+    <string name="button_enter_text">Entra</string>
+
+    <string name="tv_dataconsent_title_text">Data Consent creati</string>
+    <string name="tv_dataconsent_text">• Testo di prova linea 1\n• Testo di prova linea 2</string>
+
+
 </resources>

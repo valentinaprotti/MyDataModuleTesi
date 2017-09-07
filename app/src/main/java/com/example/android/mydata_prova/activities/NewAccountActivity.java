@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -40,6 +42,8 @@ public class NewAccountActivity extends AppCompatActivity implements View.OnClic
 		mNewAccountButton = (ImageButton) findViewById(R.id.button_add);
 		mNewAccountButton.setOnClickListener(this);
 
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		// controllo se l'utente preferisce l'assistente vocale o meno
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		voiceSupport = sharedPreferences.getBoolean("VoiceSupport", true);
@@ -64,48 +68,65 @@ public class NewAccountActivity extends AppCompatActivity implements View.OnClic
 	}
 
 	@Override
+	public void onBackPressed() {
+		NavUtils.navigateUpFromSameTask(this);
+		super.onBackPressed();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			// Respond to the action bar's Up/Home button
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
 	public void onClick(View view) {
-		if (view.getId() == R.id.button_add) {
-			newAccount(view);
+		switch(view.getId()) {
+			case R.id.button_add:
+				newAccount(view);
+				break;
 		}
 	}
 
-	private void newAccount(View v) {
+	public void newAccount(View v) {
 		if(voiceSupport)
 			if(!VoiceSupport.isTalkBackEnabled(this)){
 				tts.speak("Sta per essere creato un nuovo account MyData per questo servizio. Procedere?", TextToSpeech.QUEUE_FLUSH, null);
 			}
 		Toast.makeText(this, "Sta per essere creato un nuovo account MyData per questo servizio. Procedere?", Toast.LENGTH_SHORT).show();
 
-		if (!isFinishing()) {
-			new AlertDialog.Builder(NewAccountActivity.this)
-					.setIcon(android.R.drawable.ic_dialog_alert)
-					.setTitle("Nuovo account MyData")
-					.setMessage("Procedere?")
-					.setPositiveButton("Sì", new DialogInterface.OnClickListener() {
+		new AlertDialog.Builder(NewAccountActivity.this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle("Nuovo account MyData")
+				.setMessage("Procedere?")
+				.setPositiveButton("Sì", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							// viene creato un account per l'utente
-							// vengo reindirizzato alla schermata di gestione dei consent
-							// TODO: fare sì che tornando indietro dalla successiva schermata non si possa ritornare a questa (finish()?)
-							AbstractService serviceProva = new ServiceProva();
-							IController controller = new MyController();
-							controller.logInUser("nomecognome@prova.it", "password".toCharArray());
-							controller.addService(serviceProva);
+						// viene creato un account per l'utente
+						// vengo reindirizzato alla schermata di gestione dei consent
+						// TODO: fare sì che tornando indietro dalla successiva schermata non si possa ritornare a questa (finish()?)
+						AbstractService serviceProva = new ServiceProva();
+						IController controller = new MyController();
+						controller.logInUser("nomecognome@prova.it", "password".toCharArray());
+						controller.addService(serviceProva);
 
-							SharedPreferences.Editor editor = sharedPreferences.edit();
-							editor.putBoolean("LocationConsent", true);
-							editor.commit();
+						SharedPreferences.Editor editor = sharedPreferences.edit();
+						editor.putBoolean("LocationConsent", true);
+						editor.commit();
 
-							Intent i = new Intent(NewAccountActivity.this, UserProfileActivity.class);
-							i.putExtra(EXTRA_MESSAGE, "Account creato con successo");
-							i.putExtra(Intent.EXTRA_EMAIL, email);
-							i.putExtra(Intent.EXTRA_TEXT, password);
-							startActivity(i);
-						}
+						Intent i = new Intent(NewAccountActivity.this, UserProfileActivity.class);
+						i.putExtra(EXTRA_MESSAGE, "Account creato con successo");
+						i.putExtra(Intent.EXTRA_EMAIL, email);
+						i.putExtra(Intent.EXTRA_TEXT, password);
+						startActivity(i);
+					}
 					})
-					.setNegativeButton("No", null)
-					.show();
-		}
+				.setNegativeButton("No", null)
+				.show();
 	}
 }

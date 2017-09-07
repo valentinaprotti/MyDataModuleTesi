@@ -14,7 +14,7 @@
         android:id="@+id/button_enter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Entra"
+        android:text="@string/button_enter_text"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
