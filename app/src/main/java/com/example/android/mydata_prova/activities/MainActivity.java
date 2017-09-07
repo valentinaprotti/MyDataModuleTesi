@@ -11,7 +11,6 @@ import com.example.android.mydata_prova.R;
 import com.example.android.mydata_prova.controller.IController;
 import com.example.android.mydata_prova.controller.MyController;
 import com.example.android.mydata_prova.model.services.AbstractService;
-import com.example.android.mydata_prova.model.services.ServiceProva;
 import com.example.android.mydata_prova.model.users.IUser;
 
 import java.util.Date;
@@ -41,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 			// per test
 			// servizio a cui si riferisce
-			serviceProva = new ServiceProva();
-			controller.addService(serviceProva);
+			// serviceProva = new ServiceProva();
+			// controller.addService(serviceProva);
 		} else {
 			// vengo dalla pressione di un pulsante Up, eventualmente (TODO:) saranno poi passate le credenziali
 			controller.logInUser("nomecognome@prova.it", "password".toCharArray());
