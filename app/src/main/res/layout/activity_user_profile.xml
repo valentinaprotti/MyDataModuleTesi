@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context="com.example.android.mydata_prova.activities.UserProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+<!--        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#e0e0e0"
+            android:layout_marginTop="10dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#e0e0e0"/> -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/locationRL">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Condividi Posizione"
+                android:id="@+id/locationTextView"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"/>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/locationSwitch"
+                android:layout_gravity="right"
+                android:checked="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+        </RelativeLayout>
+
+<!--        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#e0e0e0"
+            android:layout_marginTop="10dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#e0e0e0"/> -->
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/linearLayoutConsent">
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/button_dataconsent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#00897b"
+            android:textColor="#000000"
+            android:layout_gravity="right"
+            android:text=
+                "Visualizza
+data consent"
+            android:textAlignment="center"
+            android:onClick="viewDataConsents"
+            android:contentDescription="Mostra tutti i data consent emessi in precedenza" />
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/linearLayoutConsentOptions">
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:id="@+id/button_disable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#80cbc4"
+                android:textColor="#000000"
+                android:layout_gravity="right"
+                android:text=
+                    "Disabilita
+consenso"
+                android:textAlignment="center"
+                android:onClick="disableOption"
+                android:contentDescription="Disattiva il consenso alla condivisione di tutti i dati (può essere riattivato)" />
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:id="@+id/button_withdraw"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#26a69a"
+                android:textColor="#000000"
+                android:layout_gravity="right"
+                android:text=
+                    "Revoca
+consenso"
+                android:textAlignment="center"
+                android:onClick="withdrawOption"
+                android:contentDescription="Revoca il consenso alla condivisione di tutti i dati" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+
