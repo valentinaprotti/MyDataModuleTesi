@@ -60,7 +60,13 @@ class Account implements IAccount {
 
     @Override
     public String toString() {
-        return this.service.toString() + " con stato " + this.getActiveDisabledSC().getConsentStatus().toString();
+        String status;
+		if (this.getActiveDisabledSC() != null)
+			status = this.getActiveDisabledSC().getConsentStatus().toString();
+		else
+			status = ConsentStatus.WITHDRAWN.toString();
+
+        return this.service.toString() + " con stato " + status;
     }
 
     @Override

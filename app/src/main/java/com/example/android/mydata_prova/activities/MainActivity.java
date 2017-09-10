@@ -11,6 +11,7 @@ import com.example.android.mydata_prova.R;
 import com.example.android.mydata_prova.controller.IController;
 import com.example.android.mydata_prova.controller.MyController;
 import com.example.android.mydata_prova.model.services.AbstractService;
+import com.example.android.mydata_prova.model.services.ServiceProva;
 import com.example.android.mydata_prova.model.users.IUser;
 
 import java.util.Date;
@@ -35,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		// (per ora inizializzato così in attesa del lavoro aggiornato dell'app in cui inserire,
 		// eventualmente, l'utente nel modello)
 		controller = new MyController();
+		// servizio a cui si riferisce
+		serviceProva = new ServiceProva();
 		if (!this.getIntent().hasExtra("EXTRA_CLOSED")) {
 			controller.createMyDataUser("Nome", "Cognome", new Date(1995, 9, 22), "nomecognome@prova.it", "password".toCharArray());
 
 			// per test
-			// servizio a cui si riferisce
-			// serviceProva = new ServiceProva();
-			// controller.addService(serviceProva);
+			controller.addService(serviceProva);
 		} else {
 			// vengo dalla pressione di un pulsante Up, eventualmente (TODO:) saranno poi passate le credenziali
 			controller.logInUser("nomecognome@prova.it", "password".toCharArray());
@@ -55,8 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent i = null;
         switch(view.getId()){
             case R.id.button_enter:
-				if (user.hasAccountAtService(serviceProva)) {
-					// L'utente ha un account presso il servizio: va avviata l'activity UserProfileActivity
+				if (controller.getAllActiveServicesForUser().contains(serviceProva)) {
+					// L'utente ha un account attivo/disabilitato presso il servizio: va avviata l'activity UserProfileActivity
 					i = new Intent(MainActivity.this, UserProfileActivity.class);
 				} else {
 					// No account presso il servizio: va avviata l'activity NewAccountActivity

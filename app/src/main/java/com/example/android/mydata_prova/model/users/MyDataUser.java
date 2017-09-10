@@ -4,11 +4,6 @@ package com.example.android.mydata_prova.model.users;
  * Created by Valentina on 24/08/2017.
  */
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.example.android.mydata_prova.model.MyData.IPersonalDataVault;
 import com.example.android.mydata_prova.model.MyData.PersonalDataVault;
 import com.example.android.mydata_prova.model.consents.ConsentManager;
@@ -17,6 +12,11 @@ import com.example.android.mydata_prova.model.consents.DataConsent;
 import com.example.android.mydata_prova.model.consents.ServiceConsent;
 import com.example.android.mydata_prova.model.security.ISecurityManager;
 import com.example.android.mydata_prova.model.services.IService;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class describes a MyData user. Its fields follow a generic guideline
@@ -143,7 +143,10 @@ public class MyDataUser implements IUser {
         if (this.hasAccountAtService(service))
             throw new IllegalArgumentException(
                     "User " + this.toString() + " already has an account at service " + service.toString() + ".");
-        this.accounts.add(new Account(service, ConsentManager.askServiceConsent(this, service)));
+		Account toAdd = new Account(service, ConsentManager.askServiceConsent(this, service));
+        boolean add = this.accounts.add(toAdd);
+		// ritorna FALSO quando provo ad aggiungere un nuovo account dopo un account revocato, perché i due servizi hanno lo stesso hash!
+		// TODO controlla logica: posso aggiungere un nuovo account dopo uno revocato? Secondo me sì
     }
 
     @Override
@@ -158,7 +161,7 @@ public class MyDataUser implements IUser {
     @Override
     public boolean hasAccountAtService(IService service) {
         for (IAccount a : this.accounts)
-            if (a.getService().equals(service))
+            if (a.getService().equals(service) && a.getActiveDisabledSC() != null)
                 return true;
         return false;
     }

@@ -68,6 +68,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 	private ServiceProva serviceProva;
 	private ServiceConsent userSC;
 	private IController controller;
+	private String email;
+	private String pass;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +89,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 		// servizio a cui si riferisce
 		serviceProva = new ServiceProva();
 
-		String email = "nomecognome@prova.it";
-		String pass = "password";
+		email = "nomecognome@prova.it";
+		pass = "password";
 		if (this.getIntent().hasExtra(Intent.EXTRA_EMAIL)) {
 			email = this.getIntent().getStringExtra(Intent.EXTRA_EMAIL);
 		}
@@ -105,7 +107,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 			// l'utente ha un account ma non è attivo: inizializzo di conseguenza la gui
 			mDisableButton.setText("Abilita\n" +
 					"consenso");
-			mLocationSwitch.setEnabled(true);
+			mLocationSwitch.setEnabled(false);
 		}
 
 		// controllo se l'utente preferisce l'assistente vocale o meno
@@ -250,6 +252,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 						// avvia l'activity per creare un nuovo account MyData
 						Intent i = new Intent (UserProfileActivity.this, NewAccountActivity.class);
 						i.putExtra(EXTRA_MESSAGE, "Account eliminato con successo");
+						i.putExtra(Intent.EXTRA_EMAIL, email);
+						i.putExtra(Intent.EXTRA_TEXT, pass);
 						startActivity(i);
 					}
 				})
