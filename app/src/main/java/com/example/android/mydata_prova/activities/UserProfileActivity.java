@@ -249,6 +249,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 					public void onClick(DialogInterface dialog, int which) {
 						// cambia lo stato del consent a withdrawn
 						controller.withdrawConsentForService(serviceProva);
+						SharedPreferences.Editor editor = sharedPreferences.edit();
+						editor.remove("LocationConsent");
+						editor.commit();
+
 						// avvia l'activity per creare un nuovo account MyData
 						Intent i = new Intent (UserProfileActivity.this, NewAccountActivity.class);
 						i.putExtra(EXTRA_MESSAGE, "Account eliminato con successo");

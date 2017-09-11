@@ -43,11 +43,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 			// per test
 			controller.addService(serviceProva);
+			controller.withdrawConsentForService(serviceProva);
+			controller.addService(serviceProva);
 		} else {
 			// vengo dalla pressione di un pulsante Up, eventualmente (TODO:) saranno poi passate le credenziali
 			controller.logInUser("nomecognome@prova.it", "password".toCharArray());
 			Toast.makeText(this, this.getIntent().getStringExtra("EXTRA_CLOSED"), Toast.LENGTH_SHORT).show();
 		}
+
 		user = ((MyController)controller).getUser();
     }
 

@@ -13,10 +13,10 @@ import com.example.android.mydata_prova.model.consents.ServiceConsent;
 import com.example.android.mydata_prova.model.security.ISecurityManager;
 import com.example.android.mydata_prova.model.services.IService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * This class describes a MyData user. Its fields follow a generic guideline
@@ -40,7 +40,7 @@ public class MyDataUser implements IUser {
     private String emailAddress;
     private char[] password;
     private ISecurityManager securityManager;
-    private Set<IAccount> accounts;
+    private List<IAccount> accounts;
     private IPersonalDataVault personalDataVault;
 
     public MyDataUser(String firstName, String lastName, Date dateOfBirth, String emailAddress, char[] password) {
@@ -54,7 +54,7 @@ public class MyDataUser implements IUser {
         this.emailAddress = emailAddress;
         this.password = password;
         this.securityManager = new com.example.android.mydata_prova.model.security.SecurityManager();
-        this.accounts = new HashSet<IAccount>();
+        this.accounts = new ArrayList<IAccount>();
         this.personalDataVault = new PersonalDataVault();
     }
 
@@ -109,7 +109,7 @@ public class MyDataUser implements IUser {
     }
 
     @Override
-    public Set<IAccount> getAllAccounts() {
+    public List<IAccount> getAllAccounts() {
         return this.accounts;
     }
 
@@ -145,7 +145,7 @@ public class MyDataUser implements IUser {
                     "User " + this.toString() + " already has an account at service " + service.toString() + ".");
 		Account toAdd = new Account(service, ConsentManager.askServiceConsent(this, service));
         boolean add = this.accounts.add(toAdd);
-		// ritorna FALSO quando provo ad aggiungere un nuovo account dopo un account revocato, perché i due servizi hanno lo stesso hash!
+		// ritorna FALSO quando provo ad aggiungere un nuovo account dopo un account revocato, perché..?
 		// TODO controlla logica: posso aggiungere un nuovo account dopo uno revocato? Secondo me sì
     }
 
@@ -172,8 +172,9 @@ public class MyDataUser implements IUser {
             throw new IllegalArgumentException(
                     "User " + this.toString() + " does not have an account at " + service.toString() + ".");
         for (IAccount a : this.accounts)
-            if (a.getService().equals(service) && a.getActiveDisabledSC().getConsentStatus() == ConsentStatus.ACTIVE)
-                return a.getActiveDisabledSC();
+            if (a.getService().equals(service) && a.getActiveDisabledSC() != null)
+                if (a.getActiveDisabledSC().getConsentStatus() == ConsentStatus.ACTIVE)
+                    return a.getActiveDisabledSC();
         return null;
     }
 

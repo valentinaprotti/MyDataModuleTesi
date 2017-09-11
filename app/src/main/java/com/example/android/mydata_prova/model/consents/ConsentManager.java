@@ -83,24 +83,29 @@ public class ConsentManager {
      */
 
     public static void changeServiceConsentStatusForService(IUser user, IService service, ConsentStatus newStatus) {
+        boolean changed = false;
+
         for (IAccount a : user.getAllAccounts())
             if (a.getService().equals(service)) {
                 ServiceConsent sc = a.getActiveDisabledSC();
-                if (sc == null) {
-                    // non ci sono consent attualmente attivi o disabilitati
-                    if (newStatus == ConsentStatus.WITHDRAWN) {
-                        // si sta rimettendo stato withdrawn ad un consent che è
-                        // già stato ritirato -> non ha senso
-                        throw new IllegalArgumentException("The consent has already been withdrawn.");
-                    } // si vuole mettere attivo o disabilitato ad un consent
-                    // già ritirato
-                    throw new IllegalStateException("Cannot change the status of a Withdrawn Service Consent.");
-                } // else, il consent è attivo o disabilitato
-                sc.ChangeConsentStatus(newStatus);
+                if (sc != null) {
+                    // il consent è attivo o disabilitato, ed è l'unico:
+					// dopo averlo cambiato, esco dal ciclo
+                    sc.ChangeConsentStatus(newStatus);
+                    changed = true;
+					break;
+                }
             }
-        // devo aggiornare anche la signature in qualche modo? (metodo update)
-        // questo però ricomincerebbe il protocollo di firma, cosa forse poco
-        // efficiente se fatta ripetutamente
+
+        if (!changed) {
+            // non ci sono consent attivi o disabilitati
+            if (newStatus != ConsentStatus.WITHDRAWN) {
+                // si vuole mettere attivo o disabilitato ad un consent
+                // già ritirato
+                throw new IllegalStateException("Cannot change the status of a Withdrawn Service Consent.");
+            }
+        }
+
     }
 
     /**

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -69,8 +68,10 @@ public class NewAccountActivity extends AppCompatActivity implements View.OnClic
 
 	@Override
 	public void onBackPressed() {
-		NavUtils.navigateUpFromSameTask(this);
-		super.onBackPressed();
+		Intent i = new Intent(NewAccountActivity.this, MainActivity.class);
+		i.putExtra("EXTRA_CLOSED", "Nessun account creato");
+		startActivity(i);
+		finish();
 	}
 
 	@Override

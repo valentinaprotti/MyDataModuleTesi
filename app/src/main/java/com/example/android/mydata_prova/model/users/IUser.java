@@ -11,7 +11,7 @@ import com.example.android.mydata_prova.model.security.ISecurityManager;
 import com.example.android.mydata_prova.model.services.IService;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 public interface IUser {
 
@@ -57,7 +57,7 @@ public interface IUser {
      */
     public void newAccountAtService(IService service);
 
-    public Set<IAccount> getAllAccounts();
+    public List<IAccount> getAllAccounts();
 
     public boolean checkIfPasswordEqual(char[] password);
 

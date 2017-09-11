@@ -38,6 +38,8 @@ class Account implements IAccount {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((service == null) ? 0 : service.hashCode());
+        // con l'hash costruito in questo modo, due account per lo stesso servizio che siano withdrawn, active o disabled sono uguali.
+		// (TODO) devo però poter avere tutti gli account withdrawn e un solo account active o disabled: come distinguerli?
         return result;
     }
 
