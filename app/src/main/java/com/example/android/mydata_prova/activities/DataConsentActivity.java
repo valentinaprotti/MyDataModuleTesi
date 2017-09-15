@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.example.android.mydata_prova.R;
 
+import java.util.StringTokenizer;
+
 public class DataConsentActivity extends AppCompatActivity {
 
 	private TextView mConsentTextView;
@@ -26,9 +28,18 @@ public class DataConsentActivity extends AppCompatActivity {
 	}
 
 	private void populateConsentTextView() {
+		mConsentTextView.setText("");
 		String allDConsents = this.getIntent().getStringExtra(Intent.EXTRA_TEXT);
-		if (allDConsents != null)
-			mConsentTextView.setText(allDConsents);
+		if (allDConsents != null) {
+			StringTokenizer st = new StringTokenizer(allDConsents, System.getProperty("line.separator"));
+			int count = st.countTokens();
+			for (int i=0; i<count; i++) {
+				mConsentTextView.append("• ");
+				mConsentTextView.append(st.nextToken());
+				mConsentTextView.append(System.getProperty("line.separator"));
+				mConsentTextView.append(System.getProperty("line.separator"));
+			}
+		}
 	}
 
 	@Override

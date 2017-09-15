@@ -70,6 +70,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 	private IController controller;
 	private String email;
 	private String pass;
+	private Switch mOtherSwitch;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_user_profile);
 
 		mLocationSwitch = (Switch) findViewById(R.id.locationSwitch);
+		mOtherSwitch = (Switch) findViewById(R.id.otherSwitch);
 		mDisableButton = (Button) findViewById(R.id.button_disable);
 		mDisableButton.setOnClickListener(this);
 		mWithdrawButton = (Button) findViewById(R.id.button_withdraw);
@@ -108,6 +110,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 			mDisableButton.setText("Abilita\n" +
 					"consenso");
 			mLocationSwitch.setEnabled(false);
+			mOtherSwitch.setEnabled(false);
 		}
 
 		// controllo se l'utente preferisce l'assistente vocale o meno
@@ -292,11 +295,13 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 							mDisableButton.setText("Abilita\n" +
 									"consenso");
 							mLocationSwitch.setEnabled(false);
+							mOtherSwitch.setEnabled(false);
 						} else {
 							controller.toggleStatus(serviceProva, true);
 							mDisableButton.setText("Disabilita\n" +
 									"consenso");
 							mLocationSwitch.setEnabled(true);
+							mOtherSwitch.setEnabled(true);
 						}
 					}
 				})

@@ -181,7 +181,7 @@ public class MyDataUser implements IUser {
     @Override
     public void addDataConsent(DataConsent dataConsent, IService service) {
         for (IAccount a : this.accounts)
-            if (a.getService().equals(service))
+            if (a.getService().equals(service) && a.getActiveDisabledSC() != null)
                 a.addDataConsent(dataConsent);
     }
 

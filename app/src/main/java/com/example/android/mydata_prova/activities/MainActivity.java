@@ -14,6 +14,7 @@ import com.example.android.mydata_prova.model.services.AbstractService;
 import com.example.android.mydata_prova.model.services.ServiceProva;
 import com.example.android.mydata_prova.model.users.IUser;
 
+import java.io.IOException;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		}
 
 		user = ((MyController)controller).getUser();
-    }
+	}
 
     @Override
     public void onClick(View view) {
@@ -61,6 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_enter:
 				if (controller.getAllActiveServicesForUser().contains(serviceProva)) {
 					// L'utente ha un account attivo/disabilitato presso il servizio: va avviata l'activity UserProfileActivity
+					// per test
+					try {
+						serviceProva.provideService(user);
+						serviceProva.provideService(user);
+						serviceProva.provideService(user);
+						serviceProva.provideService(user);
+						serviceProva.provideService(user);
+						serviceProva.provideService(user);
+						serviceProva.provideService(user);
+						serviceProva.provideService(user);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					i = new Intent(MainActivity.this, UserProfileActivity.class);
 				} else {
 					// No account presso il servizio: va avviata l'activity NewAccountActivity
